@@ -1,0 +1,196 @@
+{
+  "name": "Reporte Semanal Proyectos",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 16 * * 5"
+            }
+          ]
+        }
+      },
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "Cada Viernes 4pm",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [180, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Datos de proyectos activos leídos de SeguimientoProyectos/*.xlsx\n// Para actualizar: python analizar_proyectos.py > proyectos.json\n// y reemplazar el array 'projects' con el nuevo JSON\n//\n// ⚠️ REEMPLAZA estos datos de ejemplo con los de tu proyecto real\n\nconst projects = [{\"archivo\":\"ClienteABC-MigracionPlataforma.xlsx\",\"proyecto\":\"ClienteABC - Migración de Plataforma\",\"cliente\":\"ClienteABC\",\"pm\":\"Ana García\",\"inicio\":\"01/05/2026\",\"cierre\":\"30/07/2026\",\"tasks\":[{\"id\":\"T001\",\"fase\":\"Inicio\",\"categoria\":\"Inicio\",\"tarea\":\"Firma de orden de compra\",\"responsable\":\"Ana García\",\"fecha_inicio\":\"01/05/2026\",\"fecha_fin\":\"05/05/2026\",\"prioridad\":\"Baja\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T002\",\"fase\":\"Inicio\",\"categoria\":\"Inicio\",\"tarea\":\"Firma del alcance\",\"responsable\":\"Ana García\",\"fecha_inicio\":\"01/05/2026\",\"fecha_fin\":\"05/05/2026\",\"prioridad\":\"Baja\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T003\",\"fase\":\"Diseño\",\"categoria\":\"Diseño\",\"tarea\":\"Diseño del flujo\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"06/05/2026\",\"fecha_fin\":\"19/05/2026\",\"prioridad\":\"Media\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T004\",\"fase\":\"Diseño\",\"categoria\":\"Diseño\",\"tarea\":\"Diseño de la arquitectura\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"06/05/2026\",\"fecha_fin\":\"19/05/2026\",\"prioridad\":\"Media\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T005\",\"fase\":\"Diseño\",\"categoria\":\"Diseño\",\"tarea\":\"LLD - Low Level Design\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"06/05/2026\",\"fecha_fin\":\"19/05/2026\",\"prioridad\":\"Media\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T006\",\"fase\":\"Desarrollo\",\"categoria\":\"Desarrollo\",\"tarea\":\"Desarrollo de flujos\",\"responsable\":\"Luis Martínez\",\"fecha_inicio\":\"20/05/2026\",\"fecha_fin\":\"28/05/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T007\",\"fase\":\"Desarrollo\",\"categoria\":\"Desarrollo\",\"tarea\":\"Desarrollo de versiones de SW\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"20/05/2026\",\"fecha_fin\":\"28/05/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T008\",\"fase\":\"Implementación\",\"categoria\":\"Implementación\",\"tarea\":\"Entrega de hardware\",\"responsable\":\"PM Cliente\",\"fecha_inicio\":\"29/05/2026\",\"fecha_fin\":\"15/06/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T009\",\"fase\":\"Implementación\",\"categoria\":\"Implementación\",\"tarea\":\"Pruebas básicas de integración\",\"responsable\":\"María Rodríguez / PM Cliente\",\"fecha_inicio\":\"29/05/2026\",\"fecha_fin\":\"15/06/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T010\",\"fase\":\"Implementación\",\"categoria\":\"Implementación\",\"tarea\":\"Instalación de software\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"29/05/2026\",\"fecha_fin\":\"15/06/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T011\",\"fase\":\"Implementación\",\"categoria\":\"Implementación\",\"tarea\":\"Integración inicial\",\"responsable\":\"Carlos López\",\"fecha_inicio\":\"29/05/2026\",\"fecha_fin\":\"15/06/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T012\",\"fase\":\"Implementación\",\"categoria\":\"Implementación\",\"tarea\":\"Configuración de solución\",\"responsable\":\"María Rodríguez\",\"fecha_inicio\":\"29/05/2026\",\"fecha_fin\":\"15/06/2026\",\"prioridad\":\"Alta\",\"estado\":\"Completado\",\"avance\":\"100%\",\"notas\":\"\"},{\"id\":\"T013\",\"fase\":\"Pruebas\",\"categoria\":\"Pruebas\",\"tarea\":\"Pruebas de integración\",\"responsable\":\"María Rodríguez\",\"fecha_inicio\":\"16/06/2026\",\"fecha_fin\":\"12/07/2026\",\"prioridad\":\"Alta\",\"estado\":\"En progreso\",\"avance\":\"20%\",\"notas\":\"\"},{\"id\":\"T014\",\"fase\":\"Aceptación\",\"categoria\":\"Aceptación\",\"tarea\":\"Aceptación UAT\",\"responsable\":\"PM Cliente\",\"fecha_inicio\":\"13/07/2026\",\"fecha_fin\":\"16/07/2026\",\"prioridad\":\"Alta\",\"estado\":\"Pendiente\",\"avance\":\"0%\",\"notas\":\"\"},{\"id\":\"T015\",\"fase\":\"Puesta en Producción\",\"categoria\":\"Puesta en Producción\",\"tarea\":\"Agendamiento de la puesta en producción\",\"responsable\":\"PM Cliente\",\"fecha_inicio\":\"17/07/2026\",\"fecha_fin\":\"25/07/2026\",\"prioridad\":\"Media\",\"estado\":\"Pendiente\",\"avance\":\"0%\",\"notas\":\"\"},{\"id\":\"T016\",\"fase\":\"Puesta en Producción\",\"categoria\":\"Puesta en Producción\",\"tarea\":\"Ventana de puesta en producción\",\"responsable\":\"María Rodríguez\",\"fecha_inicio\":\"17/07/2026\",\"fecha_fin\":\"25/07/2026\",\"prioridad\":\"Media\",\"estado\":\"Pendiente\",\"avance\":\"0%\",\"notas\":\"\"},{\"id\":\"T017\",\"fase\":\"Fin del Proyecto\",\"categoria\":\"Fin del Proyecto\",\"tarea\":\"Firma del documento FAC\",\"responsable\":\"Ana García / PM Cliente\",\"fecha_inicio\":\"26/07/2026\",\"fecha_fin\":\"30/07/2026\",\"prioridad\":\"Baja\",\"estado\":\"Pendiente\",\"avance\":\"0%\",\"notas\":\"\"}],\"contactos_internos\":[{\"nombre\":\"Ana García\",\"rol\":\"SDM\",\"email\":\"equipo@tuempresa.com\"}],\"contactos_cliente\":[{\"nombre\":\"Contacto Cliente\",\"rol\":\"PM\",\"email\":\"pm@clienteabc.com\"}]}];\n\nreturn projects.map(p => ({ json: p }));"
+      },
+      "id": "22222222-2222-2222-2222-222222222222",
+      "name": "Leer Proyectos Excel",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Construye el prompt con los datos del proyecto\n// Nota: se expone 'prompt' como campo top-level para que Basic LLM Chain lea $json.prompt\nconst p = $input.first().json;\nconst today = new Date().toLocaleDateString('es-ES');\n\nconst tareasTexto = p.tasks.map(t =>\n  `[${t.id}] ${t.tarea} | Fase: ${t.fase} | Responsable: ${t.responsable} | Estado: ${t.estado} | Avance: ${t.avance} | Fecha límite: ${t.fecha_fin} | Prioridad: ${t.prioridad}`\n).join('\\n');\n\nconst userPrompt = `Analiza los siguientes datos del proyecto y genera el reporte semanal.\n\nFECHA DE HOY: ${today}\nPROYECTO: ${p.proyecto}\nCLIENTE: ${p.cliente}\nPM: ${p.pm}\nINICIO: ${p.inicio} | CIERRE ESTIMADO: ${p.cierre}\n\nTAREAS:\\n${tareasTexto}\n\nGenera una respuesta JSON con esta estructura exacta:\n{\n  \"resumen_global\": {\n    \"avance_porcentaje\": (número 0-100, promedio de avances),\n    \"tareas_completadas\": (número),\n    \"total_tareas\": (número),\n    \"riesgo\": (\"Sin riesgo\" o \"Riesgo medio\" o \"Riesgo alto\"),\n    \"justificacion_riesgo\": \"(una línea explicando el nivel de riesgo)\"\n  },\n  \"alertas_criticas\": [\n    {\"tarea\": \"\", \"responsable\": \"\", \"dias_retraso\": 0, \"bloqueo\": \"\"}\n  ],\n  \"reporte_interno\": {\n    \"asunto\": \"[Reporte Interno] ${p.proyecto} - Semana ${today}\",\n    \"cuerpo\": \"(reporte detallado con semáforos por tarea 🟢🟡🔴, % de avance global, alertas críticas con nombres y responsables, nivel de riesgo con justificación, tono directo y profesional)\"\n  },\n  \"reporte_cliente\": {\n    \"asunto\": \"Avance Semanal - ${p.proyecto} - ${today}\",\n    \"cuerpo\": \"(reporte ejecutivo profesional: resumen de 2-3 líneas de lo logrado esta semana, hitos completados, próximos hitos, estado general En tiempo/Con retraso leve/Requiere atención. Sin detalles internos ni nombres de responsables. Tono profesional orientado a resultados)\"\n  }\n}`;\n\nconst openai_body = {\n  model: 'gpt-4o',\n  temperature: 0.3,\n  messages: [\n    { role: 'user', content: userPrompt }\n  ]\n};\n\nreturn [{ json: { ...p, prompt: userPrompt, openai_body } }];"
+      },
+      "id": "44444444-4444-4444-4444-444444444444",
+      "name": "Construir Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [620, 300]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Construir Prompt').first().json.prompt }}",
+        "messages": {
+          "messageValues": [
+            {
+              "type": "SystemMessagePromptTemplate",
+              "message": "Eres un asistente experto en gerencia de proyectos. Siempre responde ÚNICAMENTE con JSON válido, sin texto adicional."
+            }
+          ]
+        }
+      },
+      "id": "2e5ff540-6bda-4e81-8e2a-ae1b49a0fc87",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "cc000000-cccc-cccc-cccc-cccccccccccc",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [840, 480],
+      "credentials": {
+        "openAiApi": {
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsea la respuesta del LLM y prepara los datos para los emails\nconst openaiResponse = $input.first().json;\nconst projectData = $('Construir Prompt').first().json;\n\n// Basic LLM Chain devuelve en .text; AI Agent devuelve en .output\nlet content = openaiResponse.text || openaiResponse.output || '';\n\n// Limpiar markdown code blocks si el modelo los agrega\ncontent = content.replace(/^```json\\s*/i, '').replace(/^```\\s*/i, '').replace(/\\s*```$/, '').trim();\n\nconst analysis = JSON.parse(content);\n\nconst emailsInternos = (projectData.contactos_internos || [])\n  .map(c => c.email)\n  .filter(e => e && e.includes('@'))\n  .join(',');\n\nconst emailsCliente = (projectData.contactos_cliente || [])\n  .map(c => c.email)\n  .filter(e => e && e.includes('@'))\n  .join(',');\n\nreturn [{\n  json: {\n    proyecto:              projectData.proyecto,\n    cliente:               projectData.cliente,\n    pm:                    projectData.pm,\n    resumen_global:        analysis.resumen_global,\n    alertas_criticas:      analysis.alertas_criticas || [],\n    emails_internos:       emailsInternos,\n    emails_cliente:        emailsCliente,\n    asunto_interno:        analysis.reporte_interno.asunto,\n    cuerpo_interno:        analysis.reporte_interno.cuerpo,\n    asunto_cliente:        analysis.reporte_cliente.asunto,\n    cuerpo_cliente:        analysis.reporte_cliente.cuerpo,\n    tiene_emails_internos: emailsInternos.length > 0,\n    tiene_emails_cliente:  emailsCliente.length > 0\n  }\n}];"
+      },
+      "id": "66666666-6666-6666-6666-666666666666",
+      "name": "Preparar Emails",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "aa111111-1111-1111-1111-111111111111",
+              "leftValue": "={{ $json.tiene_emails_internos }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "77777777-7777-7777-7777-777777777777",
+      "name": "Hay Emails Internos",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "bb222222-2222-2222-2222-222222222222",
+              "leftValue": "={{ $json.tiene_emails_cliente }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "88888888-8888-8888-8888-888888888888",
+      "name": "Hay Emails Cliente",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 420]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.emails_internos }}",
+        "subject": "={{ $json.asunto_interno }}",
+        "emailType": "text",
+        "message": "={{ $json.cuerpo_interno }}",
+        "options": {}
+      },
+      "id": "99999999-9999-9999-9999-999999999999",
+      "name": "Email Interno",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1500, 120]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.emails_cliente }}",
+        "subject": "={{ $json.asunto_cliente }}",
+        "emailType": "text",
+        "message": "={{ $json.cuerpo_cliente }}",
+        "options": {}
+      },
+      "id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "name": "Email Cliente",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1500, 360]
+    }
+  ],
+  "connections": {
+    "Cada Viernes 4pm": {
+      "main": [[{"node": "Leer Proyectos Excel", "type": "main", "index": 0}]]
+    },
+    "Leer Proyectos Excel": {
+      "main": [[{"node": "Construir Prompt", "type": "main", "index": 0}]]
+    },
+    "Construir Prompt": {
+      "main": [[{"node": "Basic LLM Chain", "type": "main", "index": 0}]]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [[{"node": "Basic LLM Chain", "type": "ai_languageModel", "index": 0}]]
+    },
+    "Basic LLM Chain": {
+      "main": [[{"node": "Preparar Emails", "type": "main", "index": 0}]]
+    },
+    "Preparar Emails": {
+      "main": [[
+        {"node": "Hay Emails Internos", "type": "main", "index": 0},
+        {"node": "Hay Emails Cliente",  "type": "main", "index": 0}
+      ]]
+    },
+    "Hay Emails Internos": {
+      "main": [
+        [{"node": "Email Interno", "type": "main", "index": 0}],
+        []
+      ]
+    },
+    "Hay Emails Cliente": {
+      "main": [
+        [{"node": "Email Cliente", "type": "main", "index": 0}],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
